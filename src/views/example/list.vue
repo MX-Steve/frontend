@@ -15,10 +15,15 @@
       </el-form>
     </el-card>
     <el-row>
-      <el-col :offset="22" :cols="1" style="margin-top: 5px; margin-bottom: 5px;">
+      <el-col :offset="20" :cols="2" style="margin-top: 5px; margin-bottom: 5px;">
         <router-link :to="'/example/create'">
           <el-button type="primary" size="small">
-            创建
+            文档创建
+          </el-button>
+        </router-link>
+        <router-link :to="'/example/md'">
+          <el-button type="success" size="small">
+            脚本创建
           </el-button>
         </router-link>
       </el-col>

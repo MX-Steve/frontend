@@ -100,7 +100,7 @@ export const asyncRoutes = [
     component: Layout,
     redirect: "/assets/manage",
     meta: {
-      title: "CMDB",
+      title: "基础资产",
       icon: "documentation",
       affix: true,
       tag: "assets.basic",
@@ -123,7 +123,7 @@ export const asyncRoutes = [
               import("@/views/assets/manage/assets-manage/basic/index"),
             name: "AssetsManageBasic",
             meta: {
-              title: "区域机房录入",
+              title: "机房录入",
               icon: "guide",
               affix: true,
               tag: "assets.idc-input",
@@ -135,7 +135,7 @@ export const asyncRoutes = [
               import("@/views/assets/manage/assets-manage/machine/index"),
             name: "AssetsManageMachine",
             meta: {
-              title: "设备信息录入",
+              title: "设备录入",
               icon: "guide",
               affix: true,
               tag: "assets.machine-input",
@@ -159,7 +159,7 @@ export const asyncRoutes = [
             component: () => import("@/views/assets/use/basic-assets/index"),
             name: "AssetsUseBasic",
             meta: {
-              title: "基础资产",
+              title: "区域机房",
               icon: "documentation",
               affix: true,
               tag: "assets.basic",
@@ -311,7 +311,7 @@ export const asyncRoutes = [
         component: () => import("@/views/jobs/task-scheduler/index"),
         name: "JobsList",
         meta: {
-          title: "周期性任务",
+          title: "周期任务",
           icon: "list",
           affix: true,
           tag: "jobs.list",
@@ -325,7 +325,7 @@ export const asyncRoutes = [
           title: "批量执行",
           icon: "list",
           affix: true,
-          tag: "jobs.list",
+          tag: "jobs.exec",
         },
         children: [
           {
@@ -337,7 +337,7 @@ export const asyncRoutes = [
               title: "执行任务",
               icon: "edit",
               affix: true,
-              tag: "jobs.list",
+              tag: "jobs.task",
             },
           },
           {
@@ -410,7 +410,7 @@ export const asyncRoutes = [
     redirect: '/example/list',
     name: 'Example',
     meta: {
-      title: '资料库',
+      title: '资料档案',
       icon: 'el-icon-s-help',
       tag: "tools.articles",
     },
@@ -427,7 +427,7 @@ export const asyncRoutes = [
         component: () => import('@/views/example/md'),
         name: 'CreateMd',
         meta: { title: '脚本', icon: 'edit' },
-        hidden: false
+        hidden: true 
       },
       {
         path: 'edit/:id(\\d+)',

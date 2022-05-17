@@ -235,6 +235,12 @@
               placeholder="请输入内容"
             />
           </el-form-item>
+          <el-form-item label="列表参数" prop="task">
+            <el-input v-model="task.args" placeholder="请输入内容" />
+          </el-form-item>
+          <el-form-item label="字典参数" prop="task">
+            <el-input v-model="task.kwargs" placeholder="请输入内容" />
+          </el-form-item>
           <el-form-item label="描述信息" prop="description">
             <el-input v-model="task.description" placeholder="请输入描述信息" />
           </el-form-item>
@@ -278,7 +284,8 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column prop="worker" label="工作节点" width="180" />
+          <el-table-column prop="task_args" label="列表参数" width="100" />
+          <el-table-column prop="task_kwargs" label="字典参数" width="100" />
           <el-table-column prop="result" label="执行结果">
             <template slot-scope="scope">
               {{ JSON.parse(scope.row.result) }}
