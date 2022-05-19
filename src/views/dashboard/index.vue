@@ -6,11 +6,11 @@
           <el-col :span="6">
             <el-card shadow="hover">
               <div slot="header" class="clearfix card-head">
-                <span> <i class="el-icon-s-home" /> 人生意义 </span>
+                <span> <i class="el-icon-s-home" /> 人生忠告 </span>
               </div>
               <div class="card-box">
-                <div class="number">求得好死</div>
-                <div class="info">人无完人</div>
+                <div class="number">人无完人</div>
+                <div class="info">人之大忌，在好为人师</div>
               </div>
             </el-card>
           </el-col>

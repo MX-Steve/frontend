@@ -10,7 +10,7 @@
       <el-table v-loading="loading" :data="service_list" style="width: 100%">
         <el-table-column prop="id" label="ID" width="55" />
         <el-table-column prop="name" label="服务名" width="180" />
-        <el-table-column prop="manager" label="负责人" width="180">
+        <el-table-column prop="manager" label="负责人" width="80">
           <template slot-scope="scope">
             <span v-for="(item, index) in scope.row.manager" :key="item">
               {{ get_username(item) }}
@@ -18,12 +18,12 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="rel_project" label="所属项目" width="180">
+        <el-table-column prop="rel_project" label="所属项目" width="120">
           <template slot-scope="scope">
             {{ get_name(scope.row.rel_project, project_list) }}
           </template>
         </el-table-column>
-        <el-table-column prop="service_type" label="所属类型" width="180" />
+        <el-table-column prop="service_type" label="所属类型" width="80" />
         <el-table-column prop="rel_machine" label="包含机器">
           <template slot-scope="scope">
             <span
@@ -35,7 +35,7 @@
             </span>
           </template>
         </el-table-column>
-        <el-table-column prop="remark" label="备注" width="180" />
+        <el-table-column prop="remark" label="备注" width="120" />
         <el-table-column prop="u_time" label="更新时间">
           <template slot-scope="scope">
             {{ scope.row.u_time.split(".")[0] }}
@@ -70,7 +70,7 @@
       <el-dialog
         :title="dialogTitle"
         :visible.sync="dialogVisible"
-        width="45%"
+        width="65%"
         center
         :before-close="handleClose"
       >
