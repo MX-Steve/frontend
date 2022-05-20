@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      types: ["frontend", "backend", "db", "structure", "other"],
+      types: ["frontend", "backend", "db", "structure", "other", "security", "network"],
       article: {
         title: "",
         content: "",

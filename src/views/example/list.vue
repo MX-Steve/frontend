@@ -62,6 +62,8 @@
               scope.row.type === 'backend' ||
               scope.row.type === 'db'  ||
               scope.row.type === 'structure' || 
+              scope.row.type === 'security' ||
+              scope.row.type === 'network' ||  
               scope.row.type === 'other'" :to="'/example/edit/' + scope.row.id">
                 <el-button type="primary" size="mini" icon="el-icon-edit">
                   编辑
@@ -113,7 +115,7 @@ export default {
         created_at: "",
         type: ""
       },
-      types: ["frontend", "backend", "db", "structure", "other", "shell", "python"],
+      types: ["frontend", "backend", "db", "structure", "other", "shell", "python", "security", "network"],
       total: 0,
       listLoading: false,
       page_no: 1,
