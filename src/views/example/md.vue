@@ -10,14 +10,14 @@
         </el-select>
       </el-form-item>
       <markdown-editor ref="markdownEditor" v-model="article.content"
-      :options="{ hideModeSwitch: true, previewStyle: 'tab' }" height="350px" />
+        :options="{ hideModeSwitch: true, previewStyle: 'tab' }" height="350px" />
       <el-form-item>
         <el-button type="primary" @click="article_post">
-          {{isEdit?"更新":"发布"}}
+          {{ isEdit ? "更新" : "发布" }}
         </el-button>
       </el-form-item>
     </el-form>
-    
+
 
   </el-card>
 
@@ -52,9 +52,10 @@ export default {
       return this.languageTypeList['en']
     }
   },
-  mounted(){
-    if(this.$route.query.id){
+  mounted() {
+    if (this.$route.query.id) {
       this.fetchData(this.$route.query.id)
+      this.isEdit = true
     }
   },
   methods: {
@@ -67,25 +68,47 @@ export default {
       this.html = this.$refs.markdownEditor.getHtml()
       console.log(this.html)
     },
-    article_post(){
-      article_cud("post", this.article).then(response=>{
-        if (response.code === 200) {
-          this.$notify({
-            title: '成功',
-            message: '创建成功',
-            type: 'success',
-            duration: 2000
-          })
-          location.reload(0)
-        } else {
-          this.$notify({
-            title: '失败',
-            message: '创建失败',
-            type: 'error',
-            duration: 2000
-          })
-        }
-      })
+    article_post() {
+      if (this.isEdit) {
+        article_cud("put", this.article).then(response => {
+          if (response.code === 200) {
+            this.$notify({
+              title: '更新',
+              message: '更新成功',
+              type: 'success',
+              duration: 2000
+            })
+            location.reload(0)
+          } else {
+            this.$notify({
+              title: '失败',
+              message: '更新失败',
+              type: 'error',
+              duration: 2000
+            })
+          }
+        })
+      } else {
+        article_cud("post", this.article).then(response => {
+          if (response.code === 200) {
+            this.$notify({
+              title: '成功',
+              message: '创建成功',
+              type: 'success',
+              duration: 2000
+            })
+            location.reload(0)
+          } else {
+            this.$notify({
+              title: '失败',
+              message: '创建失败',
+              type: 'error',
+              duration: 2000
+            })
+          }
+        })
+      }
+
     }
   }
 }
