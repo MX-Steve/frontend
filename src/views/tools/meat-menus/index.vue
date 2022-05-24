@@ -147,6 +147,7 @@ export default {
             }
         },
         searchMeat() {
+            this.page_no = 1
             this.page_data()
         },
         handleCurrentChange(val) {
