@@ -5,6 +5,9 @@
         <el-form-item label="标题">
           <el-input v-model="article.title" placeholder="请输入标题" />
         </el-form-item>
+        <el-form-item label="内容关键词">
+          <el-input v-model="article.content" placeholder="请输入内容关键词" />
+        </el-form-item>
         <el-select v-model="article.type" clearable placeholder="请选择">
           <el-option v-for="item in types" :key="item" :label="item" :value="item">
           </el-option>
@@ -113,7 +116,8 @@ export default {
         id: "",
         title: "",
         created_at: "",
-        type: ""
+        type: "",
+        content: ""
       },
       types: ["frontend", "backend", "db", "structure", "other", "shell", "python", "security", "network"],
       total: 0,
@@ -156,7 +160,8 @@ export default {
         page_no: this.page_no,
         page_size: this.page_size,
         title: this.article.title,
-        type: this.article.type
+        type: this.article.type,
+        content: this.article.content
       }
       article_get(obj).then(response => {
         this.list = response.data.articles
