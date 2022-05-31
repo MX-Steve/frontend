@@ -177,6 +177,18 @@ export const asyncRoutes = [
             },
             children: [
               {
+                path: "platform-hosts",
+                component: () =>
+                  import("@/views/assets/use/assets-list/platform-hosts/index"),
+                name: "PlatformHosts",
+                meta: {
+                  title: "平台机器列表",
+                  icon: "list",
+                  affix: true,
+                  tag: "assets.platform-hosts",
+                },
+              },
+              {
                 path: "network",
                 component: () =>
                   import("@/views/assets/use/assets-list/network/index"),

@@ -33,3 +33,4 @@ export const ExecHistoryPage = { keys: "exec-task.history" };
 export const AlarmPage = { keys: "tools.alarm" };
 export const MeatMenusPage = { keys: "tools.meat-menus" };
 export const ArtsPage = { keys: "tools.arts" };
+export const PlatformHostsPage = { keys: "assets.platform-hosts" };

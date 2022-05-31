@@ -25,6 +25,16 @@ export default [
         ],
       },
       {
+        key: "platform-hosts",
+        label: "平台机器",
+        perms: [
+          { key: "view", label: "查看平台机器" },
+          { key: "edit", label: "编辑平台机器" },
+          { key: "add", label: "添加平台机器" },
+          { key: "del", label: "删除平台机器" },
+        ],
+      },
+      {
         key: "network-list",
         label: "网络列表",
         perms: [
