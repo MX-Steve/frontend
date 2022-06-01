@@ -2,6 +2,37 @@
     <div class="platform-hosts">
         <div v-if="!is_mobile">
             <div class="sub-title">机器列表</div>
+            <el-card class="box-card" shadow="always">
+                <el-form :inline="true" :model="host" class="demo-form-inline">
+                    <el-form-item label="主机名">
+                        <el-input v-model="host.hostname" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="虚拟磁盘池">
+                        <el-input v-model="host.v_pool" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="zone">
+                        <el-input v-model="host.zone" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="租户">
+                        <el-input v-model="host.tenant" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="vpc">
+                        <el-input v-model="host.vpc" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="uuid">
+                        <el-input v-model="host.uuid" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="主机地址">
+                        <el-input v-model="host.host_ip" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item label="主机VIP">
+                        <el-input v-model="host.vip" placeholder="请输入" />
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="searchHost">查询</el-button>
+                    </el-form-item>
+                </el-form>
+            </el-card>
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <span>机器列表</span>
@@ -12,7 +43,7 @@
                     </el-button>
                 </div>
                 <el-table v-loading="loading" :data="hosts_list" border style="width: 100%">
-                    <el-table-column prop="id" label="ID" width="55" fixed/>
+                    <el-table-column prop="id" label="ID" width="55" fixed />
                     <el-table-column prop="v_pool" label="虚拟云盘池" width="100" fixed />
                     <el-table-column prop="zone" label="所属区" />
                     <el-table-column prop="tenant" label="所属租户" width="120" fixed />
@@ -205,6 +236,10 @@ export default {
                 });
             }
         },
+        searchHost() {
+            this.page_no = 1
+            this.page_data()
+        },
         handleCurrentChange(val) {
             this.now_page = val;
             this.init_data();
@@ -224,10 +259,12 @@ export default {
                     this.del_btn_show = response.data.del;
                 }
             })
-            const query = {
-                page_no: this.page_no,
-                page_size: this.page_size,
-            };
+            this.page_data()
+        },
+        page_data() {
+            var query = this.host
+            query["page_no"] = this.page_no
+            query["page_size"] = this.page_size
             platform_hosts_get(query).then((response) => {
                 if (response.code === 200) {
                     this.hosts_list = response.data.hosts;
