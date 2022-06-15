@@ -187,7 +187,7 @@
           :key="k1"
           class="text item"
         >
-          <el-col :span="6"> {{ kvs[k1] }} </el-col>
+          <el-col :span="6"> {{ kvs[k1] || k1 }} </el-col>
           <el-col :span="18"> : {{ v1 }} </el-col>
         </el-row>
       </el-dialog>
@@ -390,7 +390,7 @@
           :key="k1"
           class="text item"
         >
-          <el-col :span="6"> {{ kvs[k1] }} </el-col>
+          <el-col :span="6"> {{ kvs[k1] || k1 }} </el-col>
           <el-col :span="18"> : {{ v1 }} </el-col>
         </el-row>
       </el-dialog>
