@@ -436,7 +436,7 @@ export default {
       selects: {
         zone_id: "",
         idc_id: "",
-        server_type: 1,
+        server_type: "",
         status: "",
         ip: "",
       },

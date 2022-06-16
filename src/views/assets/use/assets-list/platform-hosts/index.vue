@@ -37,6 +37,11 @@
                 <div slot="header" class="clearfix">
                     <span>机器列表</span>
                     <el-button v-if="add_btn_show" type="primary" style="float: right; padding: 3px 10px"
+                        @click="sync_h()">
+                        <i class="el-icon-plus" />
+                        同步到 machine
+                    </el-button>
+                    <el-button v-if="add_btn_show" type="primary" style="float: right; padding: 3px 10px"
                         @click="create_btn()">
                         <i class="el-icon-plus" />
                         新建
@@ -160,6 +165,7 @@ import config from "@/utils/config";
 import { platform_hosts_get, platform_hosts_cud } from "@/api/assets/platforms";
 import { btn_check } from "@/api/btn";
 import { PlatformHostsPage } from "@/utils/auth";
+import { sync_hosts } from "@/api/assets/sync_host"
 export default {
     name: "PlatformHosts",
     data() {
@@ -235,6 +241,14 @@ export default {
                     type: "warning",
                 });
             }
+        },
+        sync_h(){
+            sync_hosts().then(response=>{
+                this.$message({
+                    message: response.msg,
+                    type: "success",
+                });
+            })
         },
         searchHost() {
             this.page_no = 1
