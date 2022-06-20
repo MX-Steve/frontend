@@ -242,7 +242,14 @@ import { MachineEdit } from "./components";
 import config from "@/utils/config";
 import { MachinePage } from "@/utils/auth";
 import { p_ssh, g_ssh } from "@/api/vssh";
-
+var GB2312UnicodeConverter = {
+  ToUnicode: function (str) {
+    return escape(str).toLocaleLowerCase().replace(/%u/gi, '\\u');
+  }
+  , ToGB2312: function (str) {
+    return unescape(str.replace(/\\u/gi, '%u'));
+  }
+};
 export default {
   name: "AssetsMachineList",
   components: {
@@ -561,12 +568,18 @@ export default {
     show_more(row) {
       machine_get({ type: "machine_details", id: row.id }).then((response) => {
         if (response.code === 200) {
-          this.machine_extra = {
+          var machine_extra = {
             sn_id: response.data[0].sn_id,
             u_time: response.data[0].u_time,
             port: response.data[0].port,
             optional: response.data[0].optional,
           };
+          var manager = machine_extra["optional"]["manager"]
+          var unicode_manager = manager.replaceAll("u","\\u")
+          manager = GB2312UnicodeConverter.ToGB2312(unicode_manager)
+          console.log(manager)
+          machine_extra["optional"]["manager"] = manager
+          this.machine_extra = machine_extra
           if (this.superuser === "true") {
             this.machine_extra["username"] = response.data[0].username;
             this.machine_extra["password"] = response.data[0].password;
