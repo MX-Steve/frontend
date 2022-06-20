@@ -484,7 +484,7 @@ export default {
       machine_get({
         type: "get_all_machines",
         page_no: 1,
-        page_size: 999,
+        page_size: 99999,
       }).then((response) => {
         this.machine_list = response.data.machines;
       });
@@ -600,7 +600,7 @@ export default {
       project_get({
         type: "get_all_projects",
         page_no: 1,
-        page_size: 999,
+        page_size: 99999,
       }).then((response) => {
         if (response.code == 200) {
           this.project_list = response.data.project_infos;
