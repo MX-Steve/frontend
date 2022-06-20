@@ -4,72 +4,38 @@
       <div class="sub-title">机器信息</div>
       <el-row style="margin: 25px auto">
         <el-col :span="3">
-          <el-select
-            v-model="selects.zone_id"
-            placeholder="请选择区域"
-            clearable
-            @change="zone_change()"
-          >
-            <el-option
-              v-for="item in zone_list"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.zone_id" placeholder="请选择区域" clearable @change="zone_change()">
+            <el-option v-for="item in zone_list" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select
-            v-model="selects.idc_id"
-            placeholder="请选择机房"
-            clearable
-            @change="idc_change()"
-          >
-            <el-option
-              v-for="item in idc_list"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.idc_id" placeholder="请选择机房" clearable @change="idc_change()">
+            <el-option v-for="item in idc_list" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select
-            v-model="selects.server_type"
-            placeholder="请选择设备类型"
-            clearable
-            @change="server_type_change()"
-          >
-            <el-option
-              v-for="item in server_types"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.server_type" placeholder="请选择设备类型" clearable @change="server_type_change()">
+            <el-option v-for="item in server_types" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="3">
-          <el-select
-            v-model="selects.status"
-            placeholder="请选择状态"
-            clearable
-            @change="server_status_change()"
-          >
-            <el-option
-              v-for="item in device_status"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.status" placeholder="请选择状态" clearable @change="server_status_change()">
+            <el-option v-for="item in device_status" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
-        <el-col :span="7" :offset="5">
+        <el-col :span="3">
+          <el-input v-model="selects.cabinet" placeholder="请输入机柜" />
+        </el-col>
+        <el-col :span="3">
+          <el-input v-model="selects.manager" placeholder="请输入服务器厂商" />
+        </el-col>
+        <el-col :span="3">
+          <el-input v-model="selects.MgrIp" placeholder="请输入外网IP" />
+        </el-col>
+        <el-col :span="3">
           <el-row>
             <el-col :span="19">
-              <el-input
-                v-model="selects.ip"
-                placeholder="请输入内网IP"
-              />
+              <el-input v-model="selects.ip" placeholder="请输入内网IP" />
             </el-col>
             <el-col :span="4" :offset="1">
               <el-button type="primary" @click="ip_change()"> 搜索 </el-button>
@@ -79,30 +45,12 @@
       </el-row>
       <el-row>
         <el-col :span="3" :offset="21">
-          <el-button
-            v-if="del_btn_show"
-            type="danger"
-            size="mini"
-            icon="el-icon-delete"
-            @click="delete_more()"
-          />
-          <el-button
-            v-if="down_btn_show"
-            type="success"
-            size="mini"
-            icon="el-icon-download"
-            @click="download_excel"
-          />
+          <el-button v-if="del_btn_show" type="danger" size="mini" icon="el-icon-delete" @click="delete_more()" />
+          <el-button v-if="down_btn_show" type="success" size="mini" icon="el-icon-download" @click="download_excel" />
         </el-col>
       </el-row>
-      <el-table
-        ref="multipleTable"
-        v-loading="loading"
-        tooltip-effect="dark"
-        :data="machine_list"
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table ref="multipleTable" v-loading="loading" tooltip-effect="dark" :data="machine_list" style="width: 100%"
+        @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" />
         <el-table-column prop="id" label="ID" width="55" />
         <el-table-column label="区域">
@@ -134,47 +82,23 @@
         </el-table-column>
         <el-table-column label="其他信息" width="100">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              icon="el-icon-more"
-              @click="show_more(scope.row)"
-            />
+            <el-button size="mini" icon="el-icon-more" @click="show_more(scope.row)" />
           </template>
         </el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
-            <el-button
-              v-if="edit_btn_show"
-              type="primary"
-              size="mini"
-              icon="el-icon-edit"
-              @click="edit_btn(scope.row)"
-            />
-            <el-button
-              v-if="del_btn_show"
-              type="danger"
-              size="mini"
-              icon="el-icon-delete"
-              @click="del_btn(scope.row)"
-            />
-            <el-button
-              v-if="conn_btn_show"
-              type="success"
-              size="mini"
-              @click="conn_btn(scope.row)"
-            >
+            <el-button v-if="edit_btn_show" type="primary" size="mini" icon="el-icon-edit"
+              @click="edit_btn(scope.row)" />
+            <el-button v-if="del_btn_show" type="danger" size="mini" icon="el-icon-delete"
+              @click="del_btn(scope.row)" />
+            <el-button v-if="conn_btn_show" type="success" size="mini" @click="conn_btn(scope.row)">
               连接
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        small
-        layout="prev, pager, next"
-        :page-size="count_one_page"
-        :total="total"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination small layout="prev, pager, next" :page-size="count_one_page" :total="total"
+        @current-change="handleCurrentChange" />
       <el-dialog title="更多信息" :visible.sync="dialogVisible" width="45%">
         <el-row v-for="(v, k) in machine_extra" :key="k" class="text item">
           <el-col v-if="k != 'optional'" :span="6">{{ kvs[k] }}</el-col>
@@ -182,11 +106,7 @@
             : {{ v }}
           </el-col>
         </el-row>
-        <el-row
-          v-for="(v1, k1) in machine_extra.optional"
-          :key="k1"
-          class="text item"
-        >
+        <el-row v-for="(v1, k1) in machine_extra.optional" :key="k1" class="text item">
           <el-col :span="6"> {{ kvs[k1] || k1 }} </el-col>
           <el-col :span="18"> : {{ v1 }} </el-col>
         </el-row>
@@ -196,76 +116,32 @@
       <div class="sub-title">机器信息</div>
       <el-row style="margin: 25px auto">
         <el-col :span="24">
-          <el-select
-            v-model="selects.zone_id"
-            placeholder="请选择区域"
-            clearable
-            style="width: 100%"
-            @change="zone_change()"
-          >
-            <el-option
-              v-for="item in zone_list"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.zone_id" placeholder="请选择区域" clearable style="width: 100%"
+            @change="zone_change()">
+            <el-option v-for="item in zone_list" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="24">
-          <el-select
-            v-model="selects.idc_id"
-            placeholder="请选择机房"
-            clearable
-            style="width: 100%"
-            @change="idc_change()"
-          >
-            <el-option
-              v-for="item in idc_list"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.idc_id" placeholder="请选择机房" clearable style="width: 100%" @change="idc_change()">
+            <el-option v-for="item in idc_list" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="24">
-          <el-select
-            v-model="selects.server_type"
-            placeholder="请选择设备类型"
-            clearable
-            style="width: 100%"
-            @change="server_type_change()"
-          >
-            <el-option
-              v-for="item in server_types"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.server_type" placeholder="请选择设备类型" clearable style="width: 100%"
+            @change="server_type_change()">
+            <el-option v-for="item in server_types" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="24">
-          <el-select
-            v-model="selects.status"
-            placeholder="请选择状态"
-            clearable
-            style="width: 100%"
-            @change="server_status_change()"
-          >
-            <el-option
-              v-for="item in device_status"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
+          <el-select v-model="selects.status" placeholder="请选择状态" clearable style="width: 100%"
+            @change="server_status_change()">
+            <el-option v-for="item in device_status" :key="item.id" :label="item.name" :value="item.id" />
           </el-select>
         </el-col>
         <el-col :span="24">
           <el-row>
             <el-col :span="19">
-              <el-input
-                v-model="selects.ip"
-                placeholder="请输入内网IP"
-              />
+              <el-input v-model="selects.ip" placeholder="请输入内网IP" />
             </el-col>
             <el-col :span="4" :offset="1">
               <el-button type="primary" size="small" @click="ip_change()">
@@ -277,30 +153,12 @@
       </el-row>
       <el-row>
         <el-col :span="8" :offset="16">
-          <el-button
-            v-if="del_btn_show"
-            type="danger"
-            size="mini"
-            icon="el-icon-delete"
-            @click="delete_more()"
-          />
-          <el-button
-            v-if="down_btn_show"
-            type="success"
-            size="mini"
-            icon="el-icon-download"
-            @click="download_excel"
-          />
+          <el-button v-if="del_btn_show" type="danger" size="mini" icon="el-icon-delete" @click="delete_more()" />
+          <el-button v-if="down_btn_show" type="success" size="mini" icon="el-icon-download" @click="download_excel" />
         </el-col>
       </el-row>
-      <el-table
-        ref="multipleTable"
-        v-loading="loading"
-        tooltip-effect="dark"
-        :data="machine_list"
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
+      <el-table ref="multipleTable" v-loading="loading" tooltip-effect="dark" :data="machine_list" style="width: 100%"
+        @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" fixed />
         <el-table-column prop="id" label="ID" width="55" />
         <el-table-column label="区域">
@@ -313,12 +171,7 @@
             {{ get_name(scope.row.idc_id, idc_list) }}
           </template>
         </el-table-column>
-        <el-table-column
-          prop="instance_name"
-          label="主机名"
-          fixed
-          width="120"
-        />
+        <el-table-column prop="instance_name" label="主机名" fixed width="120" />
         <el-table-column label="设备类型">
           <template slot-scope="scope">
             {{ get_name(scope.row.server_type, server_types) }}
@@ -337,47 +190,23 @@
         </el-table-column>
         <el-table-column label="其他信息" width="100">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              icon="el-icon-more"
-              @click="show_more(scope.row)"
-            />
+            <el-button size="mini" icon="el-icon-more" @click="show_more(scope.row)" />
           </template>
         </el-table-column>
         <el-table-column label="操作" width="220">
           <template slot-scope="scope">
-            <el-button
-              v-if="edit_btn_show"
-              type="primary"
-              size="mini"
-              icon="el-icon-edit"
-              @click="edit_btn(scope.row)"
-            />
-            <el-button
-              v-if="del_btn_show"
-              type="danger"
-              size="mini"
-              icon="el-icon-delete"
-              @click="del_btn(scope.row)"
-            />
-            <el-button
-              v-if="conn_btn_show"
-              type="success"
-              size="mini"
-              @click="conn_btn(scope.row)"
-            >
+            <el-button v-if="edit_btn_show" type="primary" size="mini" icon="el-icon-edit"
+              @click="edit_btn(scope.row)" />
+            <el-button v-if="del_btn_show" type="danger" size="mini" icon="el-icon-delete"
+              @click="del_btn(scope.row)" />
+            <el-button v-if="conn_btn_show" type="success" size="mini" @click="conn_btn(scope.row)">
               连接
             </el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-pagination
-        small
-        layout="prev, pager, next"
-        :page-size="count_one_page"
-        :total="total"
-        @current-change="handleCurrentChange"
-      />
+      <el-pagination small layout="prev, pager, next" :page-size="count_one_page" :total="total"
+        @current-change="handleCurrentChange" />
       <el-dialog title="更多信息" :visible.sync="dialogVisible" width="100%">
         <el-row v-for="(v, k) in machine_extra" :key="k" class="text item">
           <el-col v-if="k != 'optional'" :span="6">{{ kvs[k] }}</el-col>
@@ -385,21 +214,13 @@
             : {{ v }}
           </el-col>
         </el-row>
-        <el-row
-          v-for="(v1, k1) in machine_extra.optional"
-          :key="k1"
-          class="text item"
-        >
+        <el-row v-for="(v1, k1) in machine_extra.optional" :key="k1" class="text item">
           <el-col :span="6"> {{ kvs[k1] || k1 }} </el-col>
           <el-col :span="18"> : {{ v1 }} </el-col>
         </el-row>
       </el-dialog>
     </div>
-    <MachineEdit
-      v-if="dialogVisible2"
-      :id="machine_id"
-      :dialog-visible2="dialogVisible2"
-    />
+    <MachineEdit v-if="dialogVisible2" :id="machine_id" :dialog-visible2="dialogVisible2" />
   </div>
 </template>
 <script>
@@ -437,6 +258,9 @@ export default {
         zone_id: "",
         idc_id: "",
         server_type: "",
+        MgrIp: "",
+        manager: "",
+        cabinet: "",
         status: "",
         ip: "",
       },
@@ -694,6 +518,9 @@ export default {
     ip_change() {
       machine_get({
         type: "get_all_machines",
+        MgrIp: this.selects.MgrIp,
+        manager: this.selects.manager,
+        cabinet: this.selects.cabinet,
         ip_address: this.selects.ip,
         page_no: 1,
         page_size: 10,
@@ -837,6 +664,7 @@ export default {
   margin: 20px auto;
   background-color: #fff;
   padding: 20px;
+
   .sub-title {
     padding-top: 20px;
     text-align: center;
@@ -845,10 +673,12 @@ export default {
     padding-bottom: 10px;
     border-bottom: 2px solid #ccc;
   }
+
   .plus-button-box {
     text-align: right;
     padding: 15px 5px;
   }
+
   .text {
     font-size: 14px;
   }
