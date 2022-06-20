@@ -575,10 +575,11 @@ export default {
             optional: response.data[0].optional,
           };
           var manager = machine_extra["optional"]["manager"]
-          var unicode_manager = manager.replaceAll("u","\\u")
-          manager = GB2312UnicodeConverter.ToGB2312(unicode_manager)
-          console.log(manager)
-          machine_extra["optional"]["manager"] = manager
+          if (manager != "" && manager != undefined && manager != null) {
+            var unicode_manager = manager.replaceAll("u", "\\u")
+            manager = GB2312UnicodeConverter.ToGB2312(unicode_manager)
+            machine_extra["optional"]["manager"] = manager
+          }
           this.machine_extra = machine_extra
           if (this.superuser === "true") {
             this.machine_extra["username"] = response.data[0].username;
