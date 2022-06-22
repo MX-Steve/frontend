@@ -6,6 +6,7 @@
         <el-button v-if="add_btn_show" size="small" @click="create_btn()">
           添加
         </el-button>
+        <el-button type="primary" icon="el-icon-more" size="mini" @click="show_more_ips">展示已有机器</el-button>
       </div>
       <el-table v-loading="loading" :data="service_list" style="width: 100%">
         <el-table-column prop="id" label="ID" width="55" />
@@ -26,7 +27,12 @@
         <el-table-column prop="service_type" label="所属类型" width="80" />
         <el-table-column prop="rel_machine" label="包含机器">
           <template slot-scope="scope">
+            <span v-if="!show_more">
+              {{ get_ip_address(scope.row.rel_machine[0]) }} <br />
+              <i class="el-icon-more"></i>
+            </span>
             <span
+              v-if="show_more"
               v-for="(item, index) in scope.row.rel_machine"
               :key="index"
               style="margin-right: 15px"
@@ -399,6 +405,7 @@ export default {
       is_mobile: config.isMobile,
       ProjectsPage: ProjectsPage,
       loading: true,
+      show_more: false
     };
   },
   mounted() {
@@ -482,7 +489,7 @@ export default {
         }
       });
       machine_get({
-        type: "get_all_machines",
+        type: "get_all_ips",
         page_no: 1,
         page_size: 99999,
       }).then((response) => {
@@ -606,6 +613,9 @@ export default {
           this.project_list = response.data.project_infos;
         }
       });
+    },
+    show_more_ips(){
+      this.show_more = true
     },
     handleCurrentChange(val) {
       this.page_no = val;
