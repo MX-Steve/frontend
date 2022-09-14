@@ -393,6 +393,16 @@ export const asyncRoutes = [
     },
     children: [
       {
+        path: "list",
+        component: () => import("@/views/flow/Home"),
+        name: "FlowHome",
+        meta: {
+          title: "数据流图",
+          icon: "edit",
+          affix: true,
+        },
+      },
+      {
         path: "alarm-clock",
         component: () => import("@/views/tools/alarm-clock/index"),
         name: "AlarmClock",

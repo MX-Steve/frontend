@@ -34,7 +34,7 @@ export default {
     return {
       isEdit: false,
       id: "",
-      types: ["shell", "python"],
+      types: ["shell", "python", "go"],
       article: {
         title: "",
         content: "",

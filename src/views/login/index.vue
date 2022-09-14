@@ -61,6 +61,7 @@
 <script>
 import { validUsername } from "@/utils/validate";
 import SocialSign from "./components/SocialSignin";
+import { encrypt, decrypt } from "@/utils/jsencrypt";
 
 export default {
   name: "Login",
@@ -113,6 +114,12 @@ export default {
     // window.addEventListener('storage', this.afterQRScan)
   },
   mounted() {
+    console.log("before: HWf@iMeZKtd1Wl")
+    // var p = encrypt("HWf@iMeZKtd1Wl")
+    // console.log(p)
+    var p = "R6YHEj4ZsTkewZFXXYWumIiF+9yOyxRnZfiQ9PeuTBuTj0wKr6YBBNsY10nuWzXO0YLiCKhzfYPBwoMALeBOOdeoBgE5HPwC3+nVml6QQTigkwyp9fR6mq6DPs4UjIhhsFH94mQGZvAm4FA7G8Z2dz/+0tkjkE9s/+9/8IKg2TE="
+    var p2 = decrypt(p)
+    console.log("after: ", p2)
     if (this.loginForm.username === "") {
       this.$refs.username.focus();
     } else if (this.loginForm.password === "") {
