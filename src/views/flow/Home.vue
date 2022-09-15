@@ -1,66 +1,68 @@
 <template>
-    <div class="super-flow-base-demo">
-        <el-select v-model="jobName" placeholder="请选择业务架构" @change="changeFlow()">
-            <el-option v-for="(item,i) in jobs" :key="i" :label="item.name" :value="item.name">
-            </el-option>
-        </el-select>
-        <el-button @click="dialogVisible = true" style="margin-left:10px;" type="success" icon="el-icon-plus" circle
-            size="small"></el-button>
-        <el-button @click="delFlow()" type="danger" icon="el-icon-delete" circle size="small"></el-button>
-        <super-flow ref="superFlow" :node-list="nodeList" :link-list="linkList" :origin="origin"
-            :graph-menu="graphMenuList" :node-menu="nodeMenuList" :link-menu="linkMenuList"
-            :enter-intercept="enterIntercept" :output-intercept="outputIntercept" :link-desc="linkDesc">
-            <template v-slot:node="{meta}">
-                <div :class="`flow-node flow-node-${meta.prop}`">
-                    <header class="ellipsis">
-                        {{ meta.name }}
-                    </header>
-                    <section>
-                        {{ meta.desc }}
-                    </section>
-                </div>
-            </template>
-        </super-flow>
-        <el-dialog :title="drawerConf.title" :visible.sync="drawerConf.visible" :close-on-click-modal="false"
-            width="500px">
-            <el-form @keyup.native.enter="settingSubmit" @submit.native.prevent
-                v-show="drawerConf.type === drawerType.node" ref="nodeSetting" :model="nodeSetting">
-                <el-form-item label="节点名称" prop="name">
-                    <el-input v-model="nodeSetting.name" placeholder="请输入节点名称" maxlength="30">
-                    </el-input>
-                </el-form-item>
-                <el-form-item label="节点描述" prop="desc">
-                    <el-input v-model="nodeSetting.desc" placeholder="请输入节点描述" maxlength="30">
-                    </el-input>
-                </el-form-item>
-            </el-form>
-            <el-form @keyup.native.enter="settingSubmit" @submit.native.prevent
-                v-show="drawerConf.type === drawerType.link" ref="linkSetting" :model="linkSetting">
-                <el-form-item label="连线描述" prop="desc">
-                    <el-input v-model="linkSetting.desc" placeholder="请输入连线描述">
-                    </el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="drawerConf.cancel">
-                    取 消
-                </el-button>
-                <el-button type="primary" @click="settingSubmit">
-                    确 定
-                </el-button>
-            </span>
-        </el-dialog>
-        <el-dialog title="添加flow面板" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-            <el-form ref="flowForm" :model="flowForm" label-width="80px">
-                <el-form-item label="面板名称">
-                    <el-input v-model="flowForm.name"></el-input>
-                </el-form-item>
-            </el-form>
-            <span slot="footer" class="dialog-footer">
-                <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="addName()">确 定</el-button>
-            </span>
-        </el-dialog>
+    <div class="father">
+        <div class="super-flow-base-demo">
+            <el-select v-model="jobName" placeholder="请选择业务架构" @change="changeFlow()">
+                <el-option v-for="(item,i) in jobs" :key="i" :label="item.name" :value="item.name">
+                </el-option>
+            </el-select>
+            <el-button @click="dialogVisible = true" style="margin-left:10px;" type="success" icon="el-icon-plus" circle
+                size="small"></el-button>
+            <el-button @click="delFlow()" type="danger" icon="el-icon-delete" circle size="small"></el-button>
+            <super-flow ref="superFlow" :node-list="nodeList" :link-list="linkList" :origin="origin"
+                :graph-menu="graphMenuList" :node-menu="nodeMenuList" :link-menu="linkMenuList"
+                :enter-intercept="enterIntercept" :output-intercept="outputIntercept" :link-desc="linkDesc">
+                <template v-slot:node="{meta}">
+                    <div :class="`flow-node flow-node-${meta.prop}`">
+                        <header class="ellipsis">
+                            {{ meta.name }}
+                        </header>
+                        <section>
+                            {{ meta.desc }}
+                        </section>
+                    </div>
+                </template>
+            </super-flow>
+            <el-dialog :title="drawerConf.title" :visible.sync="drawerConf.visible" :close-on-click-modal="false"
+                width="500px">
+                <el-form @keyup.native.enter="settingSubmit" @submit.native.prevent
+                    v-show="drawerConf.type === drawerType.node" ref="nodeSetting" :model="nodeSetting">
+                    <el-form-item label="节点名称" prop="name">
+                        <el-input v-model="nodeSetting.name" placeholder="请输入节点名称" maxlength="30">
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="节点描述" prop="desc">
+                        <el-input v-model="nodeSetting.desc" placeholder="请输入节点描述" maxlength="30">
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+                <el-form @keyup.native.enter="settingSubmit" @submit.native.prevent
+                    v-show="drawerConf.type === drawerType.link" ref="linkSetting" :model="linkSetting">
+                    <el-form-item label="连线描述" prop="desc">
+                        <el-input v-model="linkSetting.desc" placeholder="请输入连线描述">
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="drawerConf.cancel">
+                        取 消
+                    </el-button>
+                    <el-button type="primary" @click="settingSubmit">
+                        确 定
+                    </el-button>
+                </span>
+            </el-dialog>
+            <el-dialog title="添加flow面板" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+                <el-form ref="flowForm" :model="flowForm" label-width="80px">
+                    <el-form-item label="面板名称">
+                        <el-input v-model="flowForm.name"></el-input>
+                    </el-form-item>
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="addName()">确 定</el-button>
+                </span>
+            </el-dialog>
+        </div>
     </div>
 </template>
 
@@ -485,10 +487,16 @@ export default {
     overflow: hidden;
     word-wrap: break-word;
 }
-
-.super-flow-base-demo {
+.father {
     width: 100%;
     height: 800px;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+    overflow: scroll;
+}
+.super-flow-base-demo {
+    width: 4000px;
+    height: 2000px;
     margin: 0 auto;
     background-color: #f5f5f5;
 
